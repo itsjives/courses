@@ -1,0 +1,23 @@
+<html>
+<head>
+	<title>Delete Friend</title>
+</head>
+<body>
+	<h3> Are you sure you want to delete this course and description?</h3>
+	<table>
+    		<thead>
+    			<th>Course Name</th>
+    			<th>Description</th>
+    			<th>Date Added</th>
+    			<th>Actions</th>
+    		</thead>
+    		<tbody>   			
+    			<tr>
+    				<td>{{course.name}}</td>
+    				<td>{{course.description}}</td>
+    				<td>{{course.created_at}}</td>    			
+    		</tbody>
+	<a href="/delete/{{course.id}}"><button type="button">Delete</button>
+	<a href="/"><button type="button">Don't delete</button></a>
+</body>
+</html>

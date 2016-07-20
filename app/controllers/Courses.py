@@ -8,14 +8,14 @@
 """
 from system.core.controller import *
 
-class Welcome(Controller):
+class Courses(Controller):
     def __init__(self, action):
-        super(Welcome, self).__init__(action)
+        super(Courses, self).__init__(action)
         """
         This is an example of loading a model.
         Every controller has access to the load_model method.
         """
-        self.load_model('WelcomeModel')
+        self.load_model('CoursesModel')
         self.db = self._app.db
 
         """
@@ -25,6 +25,30 @@ class Welcome(Controller):
         """
    
     def index(self):
+        all_courses = self.models['CoursesModel'].get_all_courses()
+        return self.load_view('index.html', all_courses=all_courses)
+    
+    def create(self):
+        b = request.form
+        course = self.models['CoursesModel'].create(b)
+        return redirect('/')
+
+    def show(self, id):
+        course = self.models['CoursesModel'].show(id)
+        return redirect ('/')
+
+    def delete(self, id):
+        course = self.models['CoursesModel'].delete(id)
+        return redirect('/')
+
+    def remove(self, id):
+        course = self.models['CoursesModel'].show(id)
+        print course
+        return self.load_view('remove.html', course = course[0])
+
+
+
+
         """
         A loaded model is accessible through the models attribute 
         self.models['WelcomeModel'].get_users()
@@ -36,5 +60,5 @@ class Welcome(Controller):
         
         # return self.load_view('index.html', messages=messages, user=user)
         """
-        return self.load_view('index.html')
+        
 

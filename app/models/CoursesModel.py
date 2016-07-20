@@ -9,9 +9,35 @@
 """
 from system.core.model import Model
 
-class WelcomeModel(Model):
+class CoursesModel(Model):
     def __init__(self):
-        super(WelcomeModel, self).__init__()
+        super(CoursesModel, self).__init__()
+
+    def get_all_courses(self):
+        query = "SELECT * FROM courses"
+        return self.db.query_db(query)
+
+    def create(self, b):
+        query = "INSERT INTO courses (name, description, created_at) VALUES (:name, :description, NOW())"
+        values = {
+            "name": b['name'],
+            "description": b['description']
+        }
+    
+        return self.db.query_db(query, values)
+
+    def show(self, id):
+        query = "SELECT * FROM courses WHERE id = :id"
+        data = {
+            'id': id
+        }
+        return self.db.query_db(query, data)
+
+    def delete(self, id):
+        query = "DELETE FROM courses WHERE id=:id"
+        values = {"id":id}
+        return self.db.query_db(query, values)
+
     """
     Below is an example of a model method that queries the database for all users in a fictitious application
     
